@@ -113,7 +113,7 @@ class Parser:
             return True
         return False
 
-    # inicial S → id = E | E
+    # inicial S → id = E 
     def S(self):
         if self.obtener_token() and self.obtener_token()[0] == 'id':
             self.coincidir('id')
@@ -123,7 +123,7 @@ class Parser:
         else:
             return self.E()  # Si no es asignación, puede ser solo una expresión
 
-    # E → T {(+|-) T}
+    # E → E + T | E - T | T
     def E(self):
         if not self.T():  # Primero se espera un término
             return False
@@ -133,7 +133,7 @@ class Parser:
                 return False
         return True
 
-    # T → F {(*|/) F}
+    # T → T * F | T / F | F
     def T(self):
         if not self.F():  # Se espera un factor
             return False
